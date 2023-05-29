@@ -97,6 +97,7 @@ class Challenges(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.Text)
     connection_info = db.Column(db.Text)
+
     next_id = db.Column(db.Integer, db.ForeignKey("challenges.id", ondelete="SET NULL"))
     max_attempts = db.Column(db.Integer, default=0)
     value = db.Column(db.Integer)
@@ -322,17 +323,24 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     oauth_id = db.Column(db.Integer, unique=True)
     # User names are not constrained to be unique to allow for official/unofficial teams.
-    name = db.Column(db.String(128))
-    password = db.Column(db.String(128))
     email = db.Column(db.String(128), unique=True)
+    password = db.Column(db.String(128))
+
+    name = db.Column(db.String(128))
+    surname = db.Column(db.String(128))
+    gender = db.Column(db.String(8))
+
     type = db.Column(db.String(80))
     secret = db.Column(db.String(128))
 
     # Supplementary attributes
-    website = db.Column(db.String(128))
-    affiliation = db.Column(db.String(128))
-    country = db.Column(db.String(32))
-    bracket = db.Column(db.String(32))
+    site = db.Column(db.String(128))
+    service = db.Column(db.String(32))
+    as_member = db.Column(db.Boolean, default=False)
+    phone = db.Column(db.String(16))
+
+    confirmed = db.Column(db.Boolean, default=False)
+
     hidden = db.Column(db.Boolean, default=False)
     banned = db.Column(db.Boolean, default=False)
     verified = db.Column(db.Boolean, default=False)
@@ -528,8 +536,7 @@ class Teams(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     oauth_id = db.Column(db.Integer, unique=True)
     # Team names are not constrained to be unique to allow for official/unofficial teams.
-    name = db.Column(db.String(128))
-    email = db.Column(db.String(128), unique=True)
+    name = db.Column(db.String(128), unique=True)
     password = db.Column(db.String(128))
     secret = db.Column(db.String(128))
 
@@ -538,10 +545,6 @@ class Teams(db.Model):
     )
 
     # Supplementary attributes
-    website = db.Column(db.String(128))
-    affiliation = db.Column(db.String(128))
-    country = db.Column(db.String(32))
-    bracket = db.Column(db.String(32))
     hidden = db.Column(db.Boolean, default=False)
     banned = db.Column(db.Boolean, default=False)
 
