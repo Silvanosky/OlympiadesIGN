@@ -14,7 +14,7 @@ def build_custom_team_fields(
     include_entries=False,
     fields_kwargs=None,
     field_entries_kwargs=None,
-    blacklisted_items=("affiliation", "website"),
+    blacklisted_items=(),
 ):
     if fields_kwargs is None:
         fields_kwargs = {}
@@ -106,19 +106,6 @@ def TeamSettingsForm(*args, **kwargs):
             "Confirm Current Team Password",
             description="Provide your current team password (or your password) to update your team's password",
         )
-        affiliation = StringField(
-            "Affiliation",
-            description="Your team's affiliation publicly shown to other competitors",
-        )
-        website = URLField(
-            "Website",
-            description="Your team's website publicly shown to other competitors",
-        )
-        country = SelectField(
-            "Country",
-            choices=SELECT_COUNTRIES_LIST,
-            description="Your team's country publicly shown to other competitors",
-        )
         submit = SubmitField("Submit")
 
         @property
@@ -166,8 +153,6 @@ class TeamSearchForm(BaseForm):
         choices=[
             ("name", "Name"),
             ("id", "ID"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -181,8 +166,6 @@ class PublicTeamSearchForm(BaseForm):
         "Search Field",
         choices=[
             ("name", "Name"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -193,11 +176,7 @@ class PublicTeamSearchForm(BaseForm):
 
 class TeamBaseForm(BaseForm):
     name = StringField("Team Name", validators=[InputRequired()])
-    email = EmailField("Email")
     password = PasswordField("Password")
-    website = URLField("Website")
-    affiliation = StringField("Affiliation")
-    country = SelectField("Country", choices=SELECT_COUNTRIES_LIST)
     hidden = BooleanField("Hidden")
     banned = BooleanField("Banned")
     submit = SubmitField("Submit")

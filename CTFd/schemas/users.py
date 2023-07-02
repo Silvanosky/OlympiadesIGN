@@ -11,7 +11,6 @@ from CTFd.utils.email import check_email_is_whitelisted
 from CTFd.utils.user import get_current_user, is_admin
 from CTFd.utils.validators import validate_country_code
 
-
 class UserSchema(ma.ModelSchema):
     class Meta:
         model = Users
@@ -28,6 +27,15 @@ class UserSchema(ma.ModelSchema):
             validate.Length(min=1, max=128, error="User names must not be empty")
         ],
     )
+    surname = field_for(
+        Users,
+        "surname",
+        required=True,
+        allow_none=False,
+        validate=[
+            validate.Length(min=1, max=128, error="User surnames must not be empty")
+        ],
+    )
     email = field_for(
         Users,
         "email",
@@ -37,20 +45,42 @@ class UserSchema(ma.ModelSchema):
             validate.Length(min=1, max=128, error="Emails must not be empty"),
         ],
     )
-    website = field_for(
+    cellphone = field_for(
         Users,
-        "website",
+        "cellphone",
+        allow_none=True,
         validate=[
-            # This is a dirty hack to let website accept empty strings so you can remove your website
-            lambda website: validate.URL(
-                error="Websites must be a proper URL starting with http or https",
-                schemes={"http", "https"},
-            )(website)
-            if website
-            else True
+            validate.Length(min=1, max=128, error="CellPhone must not be empty.")
         ],
     )
-    country = field_for(Users, "country", validate=[validate_country_code])
+    site = field_for(
+        Users,
+        "site",
+        validate=[
+            validate.Length(min=1, max=128, error="User location site must not be empty.")
+        ],
+    )
+    service = field_for(
+        Users,
+        "service",
+        validate=[
+            validate.Length(min=1, max=128, error="User organisation service must not be empty.")
+        ],
+    )
+    gender = field_for(
+        Users,
+        "gender",
+        allow_none=True,
+        validate=[
+            validate.ContainsOnly(["H", "F", ""], error="Must precise correct gender type.")
+        ],
+    )
+    as_member = field_for(
+        Users,
+        "as_member",
+        allow_none=True
+    )
+
     password = field_for(Users, "password", required=True, allow_none=False)
     fields = Nested(
         UserFieldEntriesSchema, partial=True, many=True, attribute="field_entries"
@@ -309,10 +339,9 @@ class UserSchema(ma.ModelSchema):
 
     views = {
         "user": [
-            "website",
+            "site",
             "name",
-            "country",
-            "affiliation",
+            "service",
             "bracket",
             "id",
             "oauth_id",
@@ -320,11 +349,10 @@ class UserSchema(ma.ModelSchema):
             "team_id",
         ],
         "self": [
-            "website",
+            "site",
             "name",
             "email",
-            "country",
-            "affiliation",
+            "service",
             "bracket",
             "id",
             "oauth_id",
@@ -333,13 +361,12 @@ class UserSchema(ma.ModelSchema):
             "team_id",
         ],
         "admin": [
-            "website",
+            "site",
             "name",
             "created",
-            "country",
+            "service",
             "banned",
             "email",
-            "affiliation",
             "secret",
             "bracket",
             "hidden",

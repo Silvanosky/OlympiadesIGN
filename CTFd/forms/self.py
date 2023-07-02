@@ -1,5 +1,5 @@
 from flask import session
-from wtforms import PasswordField, SelectField, StringField
+from wtforms import PasswordField, SelectField, StringField, SelectMultipleField, BooleanField
 from wtforms.fields.html5 import DateField, URLField
 
 from CTFd.forms import BaseForm
@@ -11,13 +11,16 @@ from CTFd.utils.user import get_current_user
 
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
-        name = StringField("User Name")
+        name = StringField("Name")
+        surname = StringField("Surname")
+        gender = SelectField(u'Gender', choices=[('H'), ('F'), ('')])
         email = StringField("Email")
         password = PasswordField("Password")
         confirm = PasswordField("Current Password")
-        affiliation = StringField("Affiliation")
-        website = URLField("Website")
-        country = SelectField("Country", choices=SELECT_COUNTRIES_LIST)
+        service = StringField("Service")
+        site = URLField("Site")
+        cellphone = StringField("Phone")
+        as_member = BooleanField("AS Member")
         submit = SubmitField("Submit")
 
         @property

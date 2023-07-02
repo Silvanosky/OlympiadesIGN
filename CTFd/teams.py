@@ -26,7 +26,7 @@ def listing():
     field = request.args.get("field", "name")
     filters = []
 
-    if field not in ("name", "affiliation", "website"):
+    if field not in ("name"):
         field = "name"
 
     if q:
@@ -224,9 +224,6 @@ def new():
         teamname = request.form.get("name", "").strip()
         passphrase = request.form.get("password", "").strip()
 
-        website = request.form.get("website")
-        affiliation = request.form.get("affiliation")
-
         user = get_current_user()
 
         existing_team = Teams.query.filter_by(name=teamname).first()
@@ -248,32 +245,11 @@ def new():
                 break
 
             # Handle special casing of existing profile fields
-            if field.name.lower() == "affiliation":
-                affiliation = value
-                break
-            elif field.name.lower() == "website":
-                website = value
-                break
 
             if field.field_type == "boolean":
                 entries[field_id] = bool(value)
             else:
                 entries[field_id] = value
-
-        if website:
-            valid_website = validators.validate_url(website)
-        else:
-            valid_website = True
-
-        if affiliation:
-            valid_affiliation = len(affiliation) < 128
-        else:
-            valid_affiliation = True
-
-        if valid_website is False:
-            errors.append("Websites must be a proper URL starting with http or https")
-        if valid_affiliation is False:
-            errors.append("Please provide a shorter affiliation")
 
         if errors:
             return render_template("teams/new_team.html", errors=errors), 403
@@ -286,11 +262,6 @@ def new():
         team = Teams(
             name=teamname, password=passphrase, captain_id=user.id, hidden=hidden
         )
-
-        if website:
-            team.website = website
-        if affiliation:
-            team.affiliation = affiliation
 
         db.session.add(team)
         db.session.commit()

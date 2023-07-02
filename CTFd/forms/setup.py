@@ -32,8 +32,13 @@ class SetupForm(BaseForm):
     )
 
     name = StringField(
-        "Admin Username",
+        "Admin Name",
         description="Your username for the administration account",
+        validators=[InputRequired()],
+    )
+    surname = StringField(
+        "Admin Surname",
+        description="Your user surname for the administration account",
         validators=[InputRequired()],
     )
     email = EmailField(
@@ -41,6 +46,17 @@ class SetupForm(BaseForm):
         description="Your email address for the administration account",
         validators=[InputRequired()],
     )
+    site = StringField(
+        "Admin Location Site",
+        description="Your site location",
+        validators=[InputRequired()],
+    )
+    service = StringField(
+        "Admin Service",
+        description="Your service/unité",
+        validators=[InputRequired()],
+    )
+
     password = PasswordField(
         "Admin Password",
         description="Your password for the administration account",

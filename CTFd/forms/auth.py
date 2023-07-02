@@ -1,4 +1,4 @@
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, SelectField, BooleanField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired
 
@@ -17,8 +17,14 @@ def RegistrationForm(*args, **kwargs):
         name = StringField(
             "User Name", validators=[InputRequired()], render_kw={"autofocus": True}
         )
+        surname = StringField("Surname", validators=[InputRequired()])
+        gender = SelectField(u'Gender', choices=[('H'), ('F'), ('')])
         email = EmailField("Email", validators=[InputRequired()])
         password = PasswordField("Password", validators=[InputRequired()])
+        site = StringField("Site")
+        service = StringField("Service")
+        cellphone = StringField("Phone")
+        as_member = BooleanField("AS Member")
         submit = SubmitField("Submit")
 
         @property

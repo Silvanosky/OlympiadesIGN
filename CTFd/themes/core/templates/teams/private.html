@@ -38,27 +38,6 @@
 								{{ form.confirm.description }}
 							</small>
 						</div>
-						<div class="form-group">
-							<b>{{ form.website.label }}</b>
-							{{ form.website(class="form-control") }}
-							<small class="form-text text-muted">
-								{{ form.website.description }}
-							</small>
-						</div>
-						<div class="form-group">
-							<b>{{ form.affiliation.label }}</b>
-							{{ form.affiliation(class="form-control") }}
-							<small class="form-text text-muted">
-								{{ form.affiliation.description }}
-							</small>
-						</div>
-						<div class="form-group">
-							<b>{{ form.country.label }}</b>
-							{{ form.country(class="form-control custom-select") }}
-							<small class="form-text text-muted">
-								{{ form.country.description }}
-							</small>
-						</div>
 
 						<hr>
 
@@ -230,12 +209,6 @@
 						</a>
 					{% endif %}
 				</a>
-				{% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
-					<a href="{{ team.website }}" target="_blank" style="color: inherit;" rel="noopener">
-						<i class="fas fa-external-link-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
-						   title="{{ team.website }}"></i>
-					</a>
-				{% endif %}
 			</div>
 		</div>
 	</div>

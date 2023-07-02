@@ -74,19 +74,19 @@ class UserList(Resource):
     )
     @validate_args(
         {
-            "affiliation": (str, None),
-            "country": (str, None),
-            "bracket": (str, None),
             "q": (str, None),
             "field": (
                 RawEnum(
                     "UserFields",
                     {
                         "name": "name",
-                        "website": "website",
-                        "country": "country",
-                        "bracket": "bracket",
-                        "affiliation": "affiliation",
+                        "surname": "surname",
+                        "gender": "gender",
+
+                        "site": "site",
+                        "service": "service",
+                        "cellphone": "cellphone",
+                        "as_member": "as_member",
                     },
                 ),
                 None,

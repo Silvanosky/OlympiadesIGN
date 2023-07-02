@@ -27,27 +27,8 @@ class TeamSchema(ma.ModelSchema):
             validate.Length(min=1, max=128, error="Team names must not be empty")
         ],
     )
-    email = field_for(
-        Teams,
-        "email",
-        allow_none=False,
-        validate=validate.Email("Emails must be a properly formatted email address"),
-    )
     password = field_for(Teams, "password", required=True, allow_none=False)
-    website = field_for(
-        Teams,
-        "website",
-        validate=[
-            # This is a dirty hack to let website accept empty strings so you can remove your website
-            lambda website: validate.URL(
-                error="Websites must be a proper URL starting with http or https",
-                schemes={"http", "https"},
-            )(website)
-            if website
-            else True
-        ],
-    )
-    country = field_for(Teams, "country", validate=[validate_country_code])
+
     fields = Nested(
         TeamFieldEntriesSchema, partial=True, many=True, attribute="field_entries"
     )
@@ -95,35 +76,6 @@ class TeamSchema(ma.ModelSchema):
                 if existing_team:
                     raise ValidationError(
                         "Team name has already been taken", field_names=["name"]
-                    )
-
-    @pre_load
-    def validate_email(self, data):
-        email = data.get("email")
-        if email is None:
-            return
-
-        existing_team = Teams.query.filter_by(email=email).first()
-        if is_admin():
-            team_id = data.get("id")
-            if team_id:
-                if existing_team and existing_team.id != team_id:
-                    raise ValidationError(
-                        "Email address has already been used", field_names=["email"]
-                    )
-            else:
-                if existing_team:
-                    raise ValidationError(
-                        "Email address has already been used", field_names=["email"]
-                    )
-        else:
-            current_team = get_current_team()
-            if email == current_team.email:
-                return data
-            else:
-                if existing_team:
-                    raise ValidationError(
-                        "Email address has already been used", field_names=["email"]
                     )
 
     @pre_load
@@ -325,11 +277,7 @@ class TeamSchema(ma.ModelSchema):
 
     views = {
         "user": [
-            "website",
             "name",
-            "country",
-            "affiliation",
-            "bracket",
             "members",
             "id",
             "oauth_id",
@@ -337,12 +285,7 @@ class TeamSchema(ma.ModelSchema):
             "fields",
         ],
         "self": [
-            "website",
             "name",
-            "email",
-            "country",
-            "affiliation",
-            "bracket",
             "members",
             "id",
             "oauth_id",
@@ -351,15 +294,10 @@ class TeamSchema(ma.ModelSchema):
             "fields",
         ],
         "admin": [
-            "website",
             "name",
             "created",
-            "country",
             "banned",
-            "email",
-            "affiliation",
             "secret",
-            "bracket",
             "members",
             "hidden",
             "id",

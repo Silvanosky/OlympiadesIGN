@@ -328,7 +328,7 @@ class Users(db.Model):
 
     name = db.Column(db.String(128))
     surname = db.Column(db.String(128))
-    gender = db.Column(db.String(8))
+    gender = db.Column(db.String(1))
 
     type = db.Column(db.String(80))
     secret = db.Column(db.String(128))
@@ -337,7 +337,7 @@ class Users(db.Model):
     site = db.Column(db.String(128))
     service = db.Column(db.String(32))
     as_member = db.Column(db.Boolean, default=False)
-    phone = db.Column(db.String(16))
+    cellphone = db.Column(db.String(16))
 
     confirmed = db.Column(db.Boolean, default=False)
 

@@ -1,4 +1,4 @@
-from wtforms import BooleanField, PasswordField, SelectField, StringField
+from wtforms import BooleanField, PasswordField, SelectField, StringField, SelectMultipleField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import InputRequired
 
@@ -14,7 +14,7 @@ def build_custom_user_fields(
     include_entries=False,
     fields_kwargs=None,
     field_entries_kwargs=None,
-    blacklisted_items=("affiliation", "website"),
+    blacklisted_items=(),
 ):
     """
     Function used to reinject values back into forms for accessing by themes
@@ -115,10 +115,11 @@ class UserSearchForm(BaseForm):
         "Search Field",
         choices=[
             ("name", "Name"),
+            ("surname", "Prénom"),
             ("id", "ID"),
             ("email", "Email"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
+            ("site", "Site"),
+            ("service", "Service"),
             ("ip", "IP Address"),
         ],
         default="name",
@@ -133,8 +134,8 @@ class PublicUserSearchForm(BaseForm):
         "Search Field",
         choices=[
             ("name", "Name"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
+            ("site", "Site"),
+            ("service", "Service"),
         ],
         default="name",
         validators=[InputRequired()],
@@ -144,17 +145,21 @@ class PublicUserSearchForm(BaseForm):
 
 
 class UserBaseForm(BaseForm):
-    name = StringField("User Name", validators=[InputRequired()])
+    name = StringField("Name", validators=[InputRequired()])
+    surname = StringField("Surname", validators=[InputRequired()])
+    gender = SelectField(u'Gender', choices=[('H'), ('F'), ('')])
     email = EmailField("Email", validators=[InputRequired()])
     password = PasswordField("Password")
-    website = StringField("Website")
-    affiliation = StringField("Affiliation")
-    country = SelectField("Country", choices=SELECT_COUNTRIES_LIST)
+    site = StringField("Site")
+    service = StringField("Service")
+    cellphone = StringField("Phone")
+    as_member = BooleanField("AS Member")
     type = SelectField("Type", choices=[("user", "User"), ("admin", "Admin")])
     verified = BooleanField("Verified")
     hidden = BooleanField("Hidden")
     banned = BooleanField("Banned")
     submit = SubmitField("Submit")
+
 
 
 def UserEditForm(*args, **kwargs):

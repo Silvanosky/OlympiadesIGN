@@ -71,19 +71,12 @@ class TeamList(Resource):
     )
     @validate_args(
         {
-            "affiliation": (str, None),
-            "country": (str, None),
-            "bracket": (str, None),
             "q": (str, None),
             "field": (
                 RawEnum(
                     "TeamFields",
                     {
                         "name": "name",
-                        "website": "website",
-                        "country": "country",
-                        "bracket": "bracket",
-                        "affiliation": "affiliation",
                     },
                 ),
                 None,

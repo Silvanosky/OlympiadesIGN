@@ -133,6 +133,27 @@
 								{{ form.name.description }}
 							</small>
 						</div>
+                        <div class="form-group">
+							<b>{{ form.surname.label }}</b>
+							{{ form.surname(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.surname.description }}
+							</small>
+						</div>
+                        <div class="form-group">
+							<b>{{ form.site.label }}</b>
+							{{ form.site(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.site.description }}
+							</small>
+						</div>
+                        <div class="form-group">
+							<b>{{ form.service.label }}</b>
+							{{ form.service(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.service.description }}
+							</small>
+						</div>
 						<div class="form-group">
 							<b>{{ form.email.label }}</b>
 							{{ form.email(class="form-control") }}
@@ -146,13 +167,6 @@
 							<small class="form-text text-muted">
 								{{ form.password.description }}
 							</small>
-						</div>
-
-						<div class="form-check">
-							<label class="form-check-label">
-								<input class="form-check-input" type="checkbox" value="" id="newsletter-checkbox" checked>
-								Subscribe email address to the CTFd LLC Newsletter for news and updates
-							</label>
 						</div>
 
 						<div class="text-right">

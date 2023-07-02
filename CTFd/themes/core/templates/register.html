@@ -14,24 +14,33 @@
 		<div class="col-md-6 offset-md-3">
 			{% include "components/errors.html" %}
 
-			{% if integrations.mlc() %}
-			<a class="btn btn-secondary btn-lg btn-block" href="{{ url_for('auth.oauth_login') }}">
-				Login with Major League Cyber
-			</a>
-
-			<hr>
-			{% endif %}
 
 			{% with form = Forms.auth.RegistrationForm() %}
 			{% from "macros/forms.html" import render_extra_fields %}
 			<form method="post" accept-charset="utf-8" autocomplete="off" role="form">
+
 				<div class="form-group">
 					<b>{{ form.name.label }}</b>
 					{{ form.name(class="form-control", value=name) }}
 					<small class="form-text text-muted">
-						Your username on the site
+						Your first name
 					</small>
 				</div>
+                <div class="form-group">
+					<b>{{ form.surname.label }}</b>
+                    {{ form.surname(class="form-control", value=surname) }}
+					<small class="form-text text-muted">
+						Your surname
+					</small>
+                </div>
+                <div class="form-group">
+                    <b> {{ form.gender.label }} </b>
+                    {{ form.gender(class="form-control", value=gender) }}
+					<small class="form-text text-muted">
+						Gender
+					</small>
+                </div>
+
 				<div class="form-group">
 					<b>{{ form.email.label }}</b>
 					{{ form.email(class="form-control", value=email) }}
@@ -46,7 +55,25 @@
 						Password used to log into your account
 					</small>
 				</div>
-				{{ form.nonce() }}
+            	<div class="form-group">
+                    <b>{{ form.service.label }}</b>
+                    {{ form.service(class="form-control", autocomplete="off") }}
+                </div>
+                <div class="form-group">
+                    <b>{{ form.site.label }}</b>
+                    {{ form.site(class="form-control", autocomplete="off") }}
+                </div>
+                <div class="form-check form-check-inline">
+                    <b>{{ form.as_member.label(class="form-check-label") }}</b>
+                    {{ form.as_member(class="form-check-input", autocomplete="off") }}
+                </div>
+                <div class="form-group">
+                    <b>{{ form.cellphone.label }}</b>
+                    <small class="float-right text-muted align-text-bottom">Optional</small>
+                    {{ form.cellphone(class="form-control", autocomplete="off") }}
+                </div>
+
+                {{ form.nonce() }}
 
 				{{ render_extra_fields(form.extra) }}
 

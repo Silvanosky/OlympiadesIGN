@@ -191,12 +191,16 @@ def register():
 
     if request.method == "POST":
         name = request.form.get("name", "").strip()
+        surname = request.form.get("surname", "").strip()
         email_address = request.form.get("email", "").strip().lower()
+        gender = request.form.get("gender", "").strip().upper()
         password = request.form.get("password", "").strip()
 
-        website = request.form.get("website")
-        affiliation = request.form.get("affiliation")
-        country = request.form.get("country")
+        site = request.form.get("site")
+        service = request.form.get("service")
+        as_member = request.form.get("as_member")
+        cellphone = request.form.get("cellphone")
+
         registration_code = str(request.form.get("registration_code", ""))
 
         name_len = len(name) == 0
@@ -231,36 +235,17 @@ def register():
                 break
 
             # Handle special casing of existing profile fields
-            if field.name.lower() == "affiliation":
-                affiliation = value
+            if field.name.lower() == "service":
+                service = value
                 break
-            elif field.name.lower() == "website":
-                website = value
+            elif field.name.lower() == "site":
+                site = value
                 break
 
             if field.field_type == "boolean":
                 entries[field_id] = bool(value)
             else:
                 entries[field_id] = value
-
-        if country:
-            try:
-                validators.validate_country_code(country)
-                valid_country = True
-            except ValidationError:
-                valid_country = False
-        else:
-            valid_country = True
-
-        if website:
-            valid_website = validators.validate_url(website)
-        else:
-            valid_website = True
-
-        if affiliation:
-            valid_affiliation = len(affiliation) < 128
-        else:
-            valid_affiliation = True
 
         if not valid_email:
             errors.append("Please enter a valid email address")
@@ -278,12 +263,6 @@ def register():
             errors.append("Pick a shorter password")
         if name_len:
             errors.append("Pick a longer user name")
-        if valid_website is False:
-            errors.append("Websites must be a proper URL starting with http or https")
-        if valid_country is False:
-            errors.append("Invalid country")
-        if valid_affiliation is False:
-            errors.append("Please provide a shorter affiliation")
 
         if len(errors) > 0:
             return render_template(
@@ -297,12 +276,18 @@ def register():
             with app.app_context():
                 user = Users(name=name, email=email_address, password=password)
 
-                if website:
-                    user.website = website
-                if affiliation:
-                    user.affiliation = affiliation
-                if country:
-                    user.country = country
+                if surname:
+                    user.surname = surname
+                if gender:
+                    user.gender = gender
+                if as_member:
+                    user.as_member = as_member
+                if cellphone:
+                    user.cellphone = cellphone
+                if site:
+                    user.site = site
+                if service:
+                    user.service = service
 
                 db.session.add(user)
                 db.session.commit()

@@ -24,21 +24,6 @@
 				</a>
 			{% endif %}
 
-			{% if user.affiliation %}
-				<h3 class="d-inline-block">
-					<span class="badge badge-primary">{{ user.affiliation }}</span>
-				</h3>
-			{% endif %}
-
-			{% if user.country %}
-				<h3 class="d-inline-block">
-					<span class="badge badge-primary">
-						<i class="flag-{{ user.country.lower() }}"></i>
-						{{ lookup_country_code(user.country) }}
-					</span>
-				</h3>
-			{% endif %}
-
 			{% for field in user.fields %}
 				<h3 class="d-block">
 					{{ field.name }}: {{ field.value }}
@@ -59,12 +44,6 @@
 			</div>
 
 			<div class="pt-3">
-				{% if user.website %}
-					<a href="{{ user.website }}" target="_blank" style="color: inherit;" rel="noopener">
-						<i class="fas fa-external-link-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
-						   title="{{ user.website }}"></i>
-					</a>
-				{% endif %}
 			</div>
 		</div>
 	</div>

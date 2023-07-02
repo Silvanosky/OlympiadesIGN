@@ -120,8 +120,12 @@ def setup():
 
             # Administration
             name = request.form["name"]
+            surname = request.form["surname"]
             email = request.form["email"]
             password = request.form["password"]
+
+            site = request.form['site']
+            service = request.form['service']
 
             name_len = len(name) == 0
             names = Users.query.add_columns("name", "id").filter_by(name=name).first()
@@ -159,7 +163,8 @@ def setup():
                 )
 
             admin = Admins(
-                name=name, email=email, password=password, type="admin", hidden=True
+                name=name, surname=surname, email=email, password=password,
+                site=site, service=service, type="admin", hidden=True
             )
 
             # Create an empty index page
@@ -317,10 +322,11 @@ def settings():
 
     user = get_current_user()
     name = user.name
+    surname = user.surname
     email = user.email
-    website = user.website
-    affiliation = user.affiliation
-    country = user.country
+    site = user.site
+    service = user.service
+    as_member = user.as_member
 
     if is_teams_mode() and get_current_team() is None:
         team_url = url_for("teams.private")
@@ -347,10 +353,10 @@ def settings():
     return render_template(
         "settings.html",
         name=name,
+        surname=surname,
         email=email,
-        website=website,
-        affiliation=affiliation,
-        country=country,
+        site=site,
+        service=service,
         tokens=tokens,
         prevent_name_change=prevent_name_change,
         infos=infos,
