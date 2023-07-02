@@ -24,7 +24,7 @@ def RegistrationForm(*args, **kwargs):
         site = StringField("Site")
         service = StringField("Service")
         cellphone = StringField("Phone")
-        as_member = BooleanField("AS Member")
+        #as_member = BooleanField("AS Member")
         submit = SubmitField("Submit")
 
         @property
