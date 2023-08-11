@@ -336,7 +336,7 @@ class Users(db.Model):
     # Supplementary attributes
     site = db.Column(db.String(128))
     service = db.Column(db.String(32))
-    as_member = db.Column(db.Boolean, default=False)
+    as_member = db.Column(db.Boolean, default=False, server_default="false")
     cellphone = db.Column(db.String(16))
 
     confirmed = db.Column(db.Boolean, default=False)

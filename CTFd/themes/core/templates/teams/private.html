@@ -8,7 +8,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="modal-action text-center w-100">Edit Team</h2>
+					<h2 class="modal-action text-center w-100">Modifier l'équipe</h2>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -58,7 +58,8 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="modal-action text-center w-100">Choose Captain</h2>
+					<h2 class="modal-action text-center w-100">Choisir le
+                        capitaine</h2>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -88,7 +89,8 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="modal-action text-center w-100">Invite Users</h2>
+					<h2 class="modal-action text-center w-100">Inviter des
+                        co-équipiers</h2>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -107,10 +109,12 @@
 								</div>
 							</div>
 							<small class="form-text text-muted">
-								Share this link with your team members for them to join your team
+                                Partagez ce lien avec vos co-équipiers pour leur
+                                faire rejoindre l'équipe.
 							</small>
 							<small class="form-text text-muted">
-								Invite links can be re-used and expire after 1 day
+                                Les liens d'invitation peuvent être utilisé
+                                plusieurs fois et expirent après 1 jour.
 							</small>
 						</div>
 					</form>
@@ -123,11 +127,6 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1 id="team-id" team-id="{{ team.id }}">{{ team.name }}</h1>
-			{% if team.oauth_id %}
-				<a href="https://majorleaguecyber.org/t/{{ team.name }}">
-					<h3><span class="badge badge-primary">Official</span></h3>
-				</a>
-			{% endif %}
 			{% for field in team.fields %}
 				<h3 class="d-block">
 					{{ field.name }}: {{ field.value }}
@@ -156,46 +155,57 @@
 						<i class="btn-fa fas fa-cogs fa-2x px-2"
 						   data-toggle="tooltip"
 						   data-placement="top"
-						   title="Edit Team"></i>
+						   title="Modifier l'équipe"></i>
 
 						<a class="edit-captain">
 							<i class="btn-fa fas fa-user-tag fa-2x px-2" data-toggle="tooltip" data-placement="top"
-							   title="Choose Captain"></i>
+							   title="Choisir le capitaine"></i>
 						</a>
 
 						<a class="invite-members">
 							<i class="btn-fa fas fa-ticket-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
-							   title="Invite Users"></i>
+							   title="Inviter des co-équipiers"></i>
 						</a>
 						<a class="disband-team">
 							<i class="btn-fa fas fa-trash-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
-								title="Disband Team"></i>
+								title="Dissoudre l'équipe"></i>
 						</a>
 					{% else %}
 						<i class="btn-fa fas fa-cogs fa-2x px-2 fa-disabled"
 						   data-toggle="tooltip"
 						   data-placement="top"
-						   title="Only team captains can edit team information"></i>
+						   title="Seulement le capitaine d'équipe peut modifier
+                           les informations de l'équipe"></i>
 						<a class="edit-captain">
 							<i class="btn-fa fas fa-user-tag fa-2x px-2 fa-disabled"
 							   data-toggle="tooltip"
 							   data-placement="top"
-							   title="Only team captains can choose a new captain"></i>
+							   title="Seulement le capitaine d'équipe peut
+                               choisir un nouveau capitaine"></i>
 						</a>
 						<a class="invite-members">
 							<i class="btn-fa fas fa-ticket-alt fa-2x px-2"
 								data-toggle="tooltip"
 								data-placement="top"
-								title="Only team captains can generate invite links"></i>
+								title="Seulement le capitaine d'équipe peut
+                                générer un lien d'invitation"></i>
 						</a>
 						<a class="disband-team">
 							<i class="btn-fa fas fa-trash-alt fa-2x px-2 fa-disabled"
 								data-toggle="tooltip"
 								data-placement="top"
-								title="Only team captains can disband the team"></i>
+								title="Seulement le capitaine d'équipe peut
+                                dissoudre l'équipe"></i>
 						</a>
 					{% endif %}
+    				<a class="leave-team">
+							<i class="btn-fa fas fa-user-minus fa-2x px-2"
+								data-toggle="tooltip"
+								data-placement="top"
+								title="Quitter l'équipe"></i>
+					</a>
 				</a>
+
 			</div>
 		</div>
 	</div>
@@ -206,11 +216,11 @@
 
 		<div class="row min-vh-25">
 			<div class="col-md-12">
-				<h3>Members</h3>
+				<h3>Membres</h3>
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<td><b>User Name</b></td>
+						<td><b>Nom</b></td>
 						<td><b>Score</b></td>
 					</tr>
 					</thead>
@@ -264,7 +274,7 @@
 			{% if awards %}
 				<div class="row">
 					<div class="col-md-12">
-						<h3>Awards</h3>
+						<h3>Prix</h3>
 					</div>
 					{% for award in awards %}
 						<div class="col-md-3 col-sm-6">
@@ -317,7 +327,7 @@
 		{% else %}
 			<div class="row min-vh-25">
 				<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-					No solves yet
+					Aucun épreuve pour le moment
 				</h3>
 			</div>
 		{% endif %}

@@ -183,6 +183,36 @@ def join():
             errors.append("That information is incorrect")
             return render_template("teams/join_team.html", infos=infos, errors=errors)
 
+@teams.route("/teams/joinsolo", methods=["GET", "POST"])
+@authed_only
+@require_team_mode
+def joinsolo():
+    infos = get_infos()
+    errors = get_errors()
+
+    user = get_current_user_attrs()
+    if user.team_id:
+        errors.append("You are already in a team. You cannot join another.")
+
+    team = Teams.query.filter_by(name="Individuel").first()
+
+    if errors:
+        return (
+            render_template(
+                "teams/join_team.html", team=team, infos=infos, errors=errors
+            ),
+            403,
+        )
+
+    user = get_current_user()
+    user.team_id = team.id
+    db.session.commit()
+
+    clear_user_session(user_id=user.id)
+    clear_team_session(team_id=team.id)
+
+    return redirect(url_for("user"))
+
 
 @teams.route("/teams/new", methods=["GET", "POST"])
 @authed_only

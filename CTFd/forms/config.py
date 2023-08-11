@@ -17,7 +17,7 @@ class ResetInstanceForm(BaseForm):
         description="Deletes all records that accounts gained points or took an action",
     )
     challenges = BooleanField(
-        "Challenges", description="Deletes all challenges and associated data"
+        "Épreuves", description="Deletes all challenges and associated data"
     )
     pages = BooleanField(
         "Pages", description="Deletes all pages and their associated files"
@@ -34,7 +34,7 @@ class AccountSettingsForm(BaseForm):
         description="Comma-seperated email domains which users can register under (e.g. ctfd.io, gmail.com, yahoo.com)",
     )
     team_creation = SelectField(
-        "Team Creation",
+        "Création d'équipe",
         description="Control whether users can create their own teams (Teams mode only)",
         choices=[("true", "Enabled"), ("false", "Disabled")],
         default="true",

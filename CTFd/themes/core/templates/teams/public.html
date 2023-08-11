@@ -7,11 +7,6 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1 id="team-id" team-id="{{ team.id }}">{{ team.name }}</h1>
-			{% if team.oauth_id %}
-				<a href="https://majorleaguecyber.org/t/{{ team.name }}">
-					<h3><span class="badge badge-primary">Official</span></h3>
-				</a>
-			{% endif %}
 			{% for field in team.fields %}
 				<h3 class="d-block">
 					{{ field.name }}: {{ field.value }}
@@ -46,11 +41,11 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Members</h3>
+				<h3>Membres</h3>
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<td><b>User Name</b></td>
+						<td><b>Nom</b></td>
 						<td><b>Score</b></td>
 					</tr>
 					</thead>
@@ -59,7 +54,7 @@
 						<tr>
 							<td>
 								<a href="{{ url_for('users.public', user_id=member.id) }}">
-									{{ member.name }}
+									{{ member.name }} {{ member.surname }}
 								</a>
 							</td>
 							<td>{{ member.score }}</td>
@@ -101,7 +96,7 @@
 			{% if awards %}
 				<div class="row">
 					<div class="col-md-12">
-						<h3>Awards</h3>
+						<h3>Prix</h3>
 					</div>
 					{% for award in awards %}
 						<div class="col-md-3 col-sm-6">
@@ -154,7 +149,7 @@
 		{% else %}
 			<div class="row min-vh-25">
 				<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-					No solves yet
+                    Aucune épreuve pour le moment
 				</h3>
 			</div>
 		{% endif %}

@@ -6,7 +6,7 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Confirm</h1>
+			<h1>Confirmation</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -15,20 +15,23 @@
 				{% include "components/errors.html" %}
 
 				<h5 class="text-center">
-					We've sent a confirmation email to your email address.
+                    Nous avons envoyé une confirmation par email à votre
+                    adresse.
 				</h5>
 
 				<br>
 
 				<h5 class="text-center">
-					Please click the link in that email to confirm your account.
+                    Merci de cliquer sur le lien dans cet email pour confirmer
+                    votre compte.
 				</h5>
 
 				<br>
 
 				<h5 class="text-center">
-					If the email doesn’t arrive, check your spam folder or
-					contact an administrator to manually verify your account.
+                    Si cet email ne vous est pas parvenu, vérfiez votre dossier
+                    de spam ou contactez un administrateur pour vérifier
+                    manuellement votre compte.
 				</h5>
 
 				<hr>
@@ -41,7 +44,7 @@
 						</div>
 						<div class="col-md-6">
 							<a href="{{ url_for('views.settings') }}" class="btn btn-md btn-secondary btn-outlined w-100">
-								Change Email Address
+                                Changer d'adresse email
 							</a>
 						</div>
 						{{ form.nonce() }}

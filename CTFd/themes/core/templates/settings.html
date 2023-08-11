@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>Settings</h1>
+		<h1>Paramètres</h1>
 	</div>
 </div>
 <div class="container">
@@ -14,7 +14,9 @@
 		<div class="col-md-2 offset-md-1">
 			<div class="nav flex-column nav-pills" role="tablist">
 				<a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#profile" role="tab">Profile</a>
-				<a class="nav-link" id="settings-tokens-tab" data-toggle="pill" href="#tokens" role="tab">Access Tokens</a>
+				<!--<a class="nav-link" id="settings-tokens-tab"
+                    data-toggle="pill" href="#tokens" role="tab">Access
+                    Tokens</a> -->
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -27,15 +29,15 @@
 					<form id="user-profile-form" method="post" accept-charset="utf-8" autocomplete="off" role="form"
 						class="form-horizontal">
 						<div class="form-group">
-							<b>{{ form.name.label }}</b>
+							<b>Nom de famille</b>
 							{{ form.name(class="form-control", value=name) }}
 						</div>
                         <div class="form-group">
-                            <b>{{ form.surname.label }}</b>
+                            <b>Prénom</b>
                             {{ form.surname(class="form-control", value=surname) }}
                         </div>
                         <div class="form-group">
-                            <b> {{ form.gender.label }} </b>
+                            <b> Genre </b>
                             {{ form.gender(class="form-control", value=gender) }}
                         </div>
 
@@ -68,6 +70,11 @@
                         <div class="form-group">
                             <b>{{ form.cellphone.label }}</b>
                             {{ form.cellphone(class="form-control", value=cellphone) }}
+                        </div>
+
+                        <div class="form-group">
+                            <b>Membre AS : </b>
+                            {{ form.as_member() }}
                         </div>
 
 						<hr>

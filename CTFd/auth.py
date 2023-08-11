@@ -23,6 +23,7 @@ from CTFd.utils.modes import TEAMS_MODE
 from CTFd.utils.security.auth import login_user, logout_user
 from CTFd.utils.security.signing import unserialize
 from CTFd.utils.validators import ValidationError
+from CTFd.forms.auth import RegistrationForm
 
 auth = Blueprint("auth", __name__)
 
@@ -56,7 +57,7 @@ def confirm(data=None):
         log(
             "registrations",
             format="[{date}] {ip} - successful confirmation for {name}",
-            name=user.name,
+            name=user.email,
         )
         db.session.commit()
         clear_user_session(user_id=user.id)
@@ -84,7 +85,7 @@ def confirm(data=None):
                 name=user.name,
             )
             return render_template(
-                "confirm.html", infos=[f"Confirmation email sent to {user.email}!"]
+                "confirm.html", infos=[f"Email de confirmation envoyé à {user.email}!"]
             )
         elif request.method == "GET":
             # User has been directed to the confirm page
@@ -188,7 +189,7 @@ def register():
     errors = get_errors()
     if current_user.authed():
         return redirect(url_for("challenges.listing"))
-
+    form = RegistrationForm(request.form)
     if request.method == "POST":
         name = request.form.get("name", "").strip()
         surname = request.form.get("surname", "").strip()
@@ -198,13 +199,14 @@ def register():
 
         site = request.form.get("site")
         service = request.form.get("service")
-        as_member = request.form.get("as_member")
+        as_member = form.as_member.data
         cellphone = request.form.get("cellphone")
 
         registration_code = str(request.form.get("registration_code", ""))
 
         name_len = len(name) == 0
-        names = Users.query.add_columns("name", "id").filter_by(name=name).first()
+        names = Users.query.add_columns("name", "surname", "id").filter_by(name=name,
+                                                                surname=surname).first()
         emails = (
             Users.query.add_columns("email", "id")
             .filter_by(email=email_address)
@@ -231,7 +233,7 @@ def register():
         for field_id, field in fields.items():
             value = request.form.get(f"fields[{field_id}]", "").strip()
             if field.required is True and (value is None or value == ""):
-                errors.append("Please provide all required fields")
+                errors.append("Merci de préciser tous les champs obligatoire")
                 break
 
             # Handle special casing of existing profile fields
@@ -252,7 +254,7 @@ def register():
         if email.check_email_is_whitelisted(email_address) is False:
             errors.append("Your email address is not from an allowed domain")
         if names:
-            errors.append("That user name is already taken")
+            errors.append("Un utilisateur avec ce nom et prénom existe déjà")
         if team_name_email_check is True:
             errors.append("Your user name cannot be an email address")
         if emails:

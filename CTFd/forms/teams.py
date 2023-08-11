@@ -72,16 +72,16 @@ def attach_custom_team_fields(form_cls, **kwargs):
 
 
 class TeamJoinForm(BaseForm):
-    name = StringField("Team Name", validators=[InputRequired()])
-    password = PasswordField("Team Password", validators=[InputRequired()])
-    submit = SubmitField("Join")
+    name = StringField("Nom d'équipe", validators=[InputRequired()])
+    password = PasswordField("Mot de passe d'équipe", validators=[InputRequired()])
+    submit = SubmitField("Rejoindre")
 
 
 def TeamRegisterForm(*args, **kwargs):
     class _TeamRegisterForm(BaseForm):
-        name = StringField("Team Name", validators=[InputRequired()])
-        password = PasswordField("Team Password", validators=[InputRequired()])
-        submit = SubmitField("Create")
+        name = StringField("Nom d'équipe", validators=[InputRequired()])
+        password = PasswordField("Mot de passe d'équipe", validators=[InputRequired()])
+        submit = SubmitField("Créer")
 
         @property
         def extra(self):
@@ -96,17 +96,17 @@ def TeamRegisterForm(*args, **kwargs):
 def TeamSettingsForm(*args, **kwargs):
     class _TeamSettingsForm(BaseForm):
         name = StringField(
-            "Team Name",
-            description="Your team's public name shown to other competitors",
+            "Nom d'équipe",
+            description="Le nom publique de votre équipe",
         )
         password = PasswordField(
-            "New Team Password", description="Set a new team join password"
+            "Nouveau mot de passe d'équipe", description="Définir un nouveau mot de passe pour rejoindre l'équipe"
         )
         confirm = PasswordField(
-            "Confirm Current Team Password",
-            description="Provide your current team password (or your password) to update your team's password",
+            "Confirmer le mot de passer actuel d'équipe",
+            description="Fournir le mot de passe d'équipe actuel pour mettre à jour le mot de passe",
         )
-        submit = SubmitField("Submit")
+        submit = SubmitField("Confirmer")
 
         @property
         def extra(self):
@@ -143,8 +143,8 @@ def TeamSettingsForm(*args, **kwargs):
 
 class TeamCaptainForm(BaseForm):
     # Choices are populated dynamically at form creation time
-    captain_id = SelectField("Team Captain", choices=[], validators=[InputRequired()])
-    submit = SubmitField("Submit")
+    captain_id = SelectField("Capitaine d'équipe", choices=[], validators=[InputRequired()])
+    submit = SubmitField("Confirmer")
 
 
 class TeamSearchForm(BaseForm):
@@ -175,11 +175,11 @@ class PublicTeamSearchForm(BaseForm):
 
 
 class TeamBaseForm(BaseForm):
-    name = StringField("Team Name", validators=[InputRequired()])
-    password = PasswordField("Password")
-    hidden = BooleanField("Hidden")
-    banned = BooleanField("Banned")
-    submit = SubmitField("Submit")
+    name = StringField("Nom d'équipe", validators=[InputRequired()])
+    password = PasswordField("Mot de passe")
+    hidden = BooleanField("Cacher")
+    banned = BooleanField("Bannir")
+    submit = SubmitField("Confirmer")
 
 
 def TeamCreateForm(*args, **kwargs):
@@ -223,8 +223,8 @@ def TeamEditForm(*args, **kwargs):
 
 
 class TeamInviteForm(BaseForm):
-    link = URLField("Invite Link")
+    link = URLField("Lien d'invitation")
 
 
 class TeamInviteJoinForm(BaseForm):
-    submit = SubmitField("Join")
+    submit = SubmitField("Rejoindre")

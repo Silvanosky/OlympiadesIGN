@@ -103,8 +103,8 @@ def attach_registration_code_field(form_cls):
             form_cls,
             "registration_code",
             StringField(
-                "Registration Code",
-                description="Registration code required to create account",
+                "Code d'enregistrement",
+                description="Code d'enregistrement nécessaire pour créer un compte",
                 validators=[InputRequired()],
             ),
         )
@@ -145,20 +145,20 @@ class PublicUserSearchForm(BaseForm):
 
 
 class UserBaseForm(BaseForm):
-    name = StringField("Name", validators=[InputRequired()])
-    surname = StringField("Surname", validators=[InputRequired()])
-    gender = SelectField(u'Gender', choices=[('H'), ('F'), ('')])
+    name = StringField("Nom", validators=[InputRequired()])
+    surname = StringField("Prénom", validators=[InputRequired()])
+    gender = SelectField(u'Genre', choices=[('H'), ('F'), ('')])
     email = EmailField("Email", validators=[InputRequired()])
-    password = PasswordField("Password")
+    password = PasswordField("Mot de passe")
     site = StringField("Site")
     service = StringField("Service")
-    cellphone = StringField("Phone")
-    as_member = BooleanField("AS Member")
+    cellphone = StringField("Téléphone")
+    as_member = BooleanField("Membre AS")
     type = SelectField("Type", choices=[("user", "User"), ("admin", "Admin")])
-    verified = BooleanField("Verified")
-    hidden = BooleanField("Hidden")
-    banned = BooleanField("Banned")
-    submit = SubmitField("Submit")
+    verified = BooleanField("Vérifié")
+    hidden = BooleanField("Caché")
+    banned = BooleanField("Banni")
+    submit = SubmitField("Confirmer")
 
 
 

@@ -7,7 +7,7 @@ from CTFd.forms.fields import SubmitField
 
 class ChallengeSearchForm(BaseForm):
     field = SelectField(
-        "Search Field",
+        "Champ de recherche",
         choices=[
             ("name", "Name"),
             ("id", "ID"),
@@ -18,7 +18,7 @@ class ChallengeSearchForm(BaseForm):
         validators=[InputRequired()],
     )
     q = StringField("Parameter", validators=[InputRequired()])
-    submit = SubmitField("Search")
+    submit = SubmitField("Chercher")
 
 
 class ChallengeFilesUploadForm(BaseForm):

@@ -11,17 +11,17 @@ from CTFd.utils.user import get_current_user
 
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
-        name = StringField("Name")
-        surname = StringField("Surname")
-        gender = SelectField(u'Gender', choices=[('H'), ('F'), ('')])
+        name = StringField("Nom")
+        surname = StringField("Prénom")
+        gender = SelectField(u'Genre', choices=[('H'), ('F'), ('')])
         email = StringField("Email")
-        password = PasswordField("Password")
-        confirm = PasswordField("Current Password")
+        password = PasswordField("Mot de passe")
+        confirm = PasswordField("Mot de passe actuel")
         service = StringField("Service")
         site = URLField("Site")
-        cellphone = StringField("Phone")
-        as_member = BooleanField("AS Member")
-        submit = SubmitField("Submit")
+        cellphone = StringField("Téléphone")
+        as_member = BooleanField("Membre AS")
+        submit = SubmitField("Confirmer")
 
         @property
         def extra(self):

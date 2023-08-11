@@ -270,6 +270,12 @@ def setup():
             with app.app_context():
                 cache.clear()
 
+            #Create individual team
+            team = Teams(name="Individuel", password="", hidden=False)
+
+            db.session.add(team)
+            db.session.commit()
+
             return redirect(url_for("views.static_html"))
         try:
             return render_template("setup.html", state=serialize(generate_nonce()))
@@ -356,6 +362,7 @@ def settings():
         surname=surname,
         email=email,
         site=site,
+        as_member=as_member,
         service=service,
         tokens=tokens,
         prevent_name_change=prevent_name_change,
