@@ -229,7 +229,7 @@
 						<tr>
 							<td>
 								<a href="{{ url_for('users.public', user_id=member.id) }}">
-									{{ member.name }}
+									{{ member.surname }} {{ member.name }}
 								</a>
 								{% if team.captain_id == member.id %}
 									<span class="badge badge-primary ml-2">Captain</span>
