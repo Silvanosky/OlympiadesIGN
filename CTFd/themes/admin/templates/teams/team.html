@@ -252,7 +252,7 @@
 						</td>
 						<td class="text-left" data-href="{{ url_for('admin.users_detail', user_id=member.id) }}">
 							<a href="{{ url_for('admin.users_detail', user_id=member.id) }}">
-								{{ member.name }}
+								{{ member.surname }} {{ member.name }}
 							</a>
 						</td>
 						<td class="text-center" data-href="{{ url_for('admin.users_detail', user_id=member.id) }}">
@@ -341,7 +341,7 @@
 								</td>
 								<td class="text-center">
 									<a href="{{ url_for("admin.users_detail", user_id=solve.user_id) }}">
-										{{ solve.user.name }}
+										{{ solve.user.surname }} {{ solve.user.name }}
 									</a>
 								</td>
 								<td class="flag" id="{{ solve.id }}"><pre>{{ solve.provided }}</pre></td>

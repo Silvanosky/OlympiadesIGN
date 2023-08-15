@@ -92,15 +92,10 @@
 							</div>
 						</td>
 						<td class="team-id text-center" value="{{ user.id }}">{{ user.id }}</td>
-						<td class="team-name" value="{{ user.name }}">
+						<td class="team-name" value="{{ user.surname }} {{ user.name }}">
 							<a href="{{ url_for('admin.users_detail', user_id=user.id) }}">
-								{{ user.name | truncate(32) }}
+								{{ user.surname | truncate(32) }} {{ user.name | truncate(32) }}
 							</a>
-							{% if user.oauth_id %}
-								<a href="https://majorleaguecyber.org/u/{{ user.name }}">
-									<span class="badge badge-primary">Official</span>
-								</a>
-							{% endif %}
 						</td>
 						<td class="team-email d-none d-md-table-cell d-lg-table-cell" value="{{ user.email }}">
 							{% if user.email %}

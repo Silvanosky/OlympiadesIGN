@@ -15,7 +15,8 @@
 				<tr>
 					<td class="text-center">
 						<a href="{{ url_for("admin.users_detail", user_id=addr.user_id) }}">
-							{{ addr.user.name }}
+							{{ addr.user.surname }} {{ addr.user.name }}
+
 						</a>
 					</td>
 					<td class="text-center">

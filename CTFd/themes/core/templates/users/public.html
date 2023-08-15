@@ -6,7 +6,7 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>{{ user.name }}</h1>
+			<h1>{{ user.surname }} {{ user.name }}</h1>
 
 			{% if user.team_id %}
 				<h2>
@@ -140,7 +140,7 @@
 		var stats_data = {{ {
 			'type': 'user',
 			'id': user.id,
-			'name': user.name,
+			'name': user.surname+user.name,
 			'account_id': user.id,
 		} | tojson }};
 	</script>

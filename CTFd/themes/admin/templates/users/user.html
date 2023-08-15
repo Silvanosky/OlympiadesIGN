@@ -86,7 +86,7 @@
 
 <div class="jumbotron">
 	<div class="container">
-		<h1 id="team-id" class="text-center p-0 m-0">{{ user.name }}</h1>
+		<h1 id="team-id" class="text-center p-0 m-0">{{ user.surname }} {{ user.name }}</h1>
 		<div class="mb-2">
 			{% if user.type == 'admin' %}
 				<span class="badge badge-primary">admin</span>
@@ -103,11 +103,6 @@
 		</div>
 
 		<h2 id="team-email" class="text-center">{{ user.email }}</h2>
-		{% if user.oauth_id %}
-			<a href="https://majorleaguecyber.org/u/{{ user.name }}">
-				<h3><span class="badge badge-primary">Official</span></h3>
-			</a>
-		{% endif %}
 
 		{% if user.team_id %}
 			<h2 id="team-acc" class="text-center">
@@ -416,12 +411,12 @@
 {% block scripts %}
 <script>
 var USER_ID = {{ user.id }};
-var USER_NAME = {{ user.name | tojson }};
+var USER_NAME = {{ user.surname | tojson }} {{ user.name | tojson }};
 var TEAM_ID = {{ user.team_id | tojson }};
 var stats_data = {{ {
 	'type': 'user',
 	'id': user.id,
-	'name': user.name,
+	'name': user.surname+user.name,
 	'account_id': user.id,
 } | tojson }};
 </script>
