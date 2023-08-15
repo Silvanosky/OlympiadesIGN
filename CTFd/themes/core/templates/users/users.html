@@ -58,10 +58,10 @@
 							<td>
 								{% if scores_visible() %}
 									<a href="{{ url_for('users.public', user_id=user.id) }}">
-										{{ user.name | truncate(50) }}
+										{{ user.surname | truncate(50) }} {{ user.name | truncate(50) }}
 									</a>
 								{% else %}
-									<span>{{ user.name | truncate(50) }}</span>
+									<span>{{ user.surname | truncate(50) }} {{ user.name | truncate(50) }}</span>
 								{% endif %}
 							</td>
 							<td class="d-none d-md-table-cell d-lg-table-cell">

@@ -348,13 +348,11 @@ def register():
 def login():
     errors = get_errors()
     if request.method == "POST":
-        name = request.form["name"]
+        name = request.form["email"]
 
         # Check if the user submitted an email address or a team name
         if validators.validate_email(name) is True:
             user = Users.query.filter_by(email=name).first()
-        else:
-            user = Users.query.filter_by(name=name).first()
 
         if user:
             if user.password is None:
