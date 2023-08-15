@@ -89,42 +89,44 @@ class UserSchema(ma.ModelSchema):
     @pre_load
     def validate_name(self, data):
         name = data.get("name")
-        if name is None:
+        surname = data.get("surname")
+        if name is None or surname is None:
             return
         name = name.strip()
+        surname = surname.strip()
 
-        existing_user = Users.query.filter_by(name=name).first()
+        existing_user = Users.query.filter_by(name=name, surname=surname).first()
         current_user = get_current_user()
         if is_admin():
             user_id = data.get("id")
             if user_id:
                 if existing_user and existing_user.id != user_id:
                     raise ValidationError(
-                        "User name has already been taken", field_names=["name"]
+                        "User name has already been taken", field_names=["name", "surname"]
                     )
             else:
                 if existing_user:
                     if current_user:
                         if current_user.id != existing_user.id:
                             raise ValidationError(
-                                "User name has already been taken", field_names=["name"]
+                                "User name has already been taken", field_names=["name", "surname"]
                             )
                     else:
                         raise ValidationError(
-                            "User name has already been taken", field_names=["name"]
+                            "User name has already been taken", field_names=["name", "surname"]
                         )
         else:
-            if name == current_user.name:
+            if name == current_user.name and surname == current_user.surname:
                 return data
             else:
                 name_changes = get_config("name_changes", default=True)
                 if bool(name_changes) is False:
                     raise ValidationError(
-                        "Name changes are disabled", field_names=["name"]
+                        "Name changes are disabled", field_names=["name", "surname"]
                     )
                 if existing_user:
                     raise ValidationError(
-                        "User name has already been taken", field_names=["name"]
+                        "User name has already been taken", field_names=["name", "surname"]
                     )
 
     @pre_load
@@ -339,19 +341,28 @@ class UserSchema(ma.ModelSchema):
 
     views = {
         "user": [
-            "site",
             "name",
+            "surname",
+            "gender",
             "service",
+            "site",
+            "as_member",
+            "cellphone",
+            "email",
             "id",
             "oauth_id",
             "fields",
             "team_id",
         ],
         "self": [
-            "site",
             "name",
+            "surname",
+            "gender",
             "email",
             "service",
+            "site",
+            "as_member",
+            "cellphone",
             "id",
             "oauth_id",
             "password",
@@ -359,10 +370,14 @@ class UserSchema(ma.ModelSchema):
             "team_id",
         ],
         "admin": [
-            "site",
             "name",
+            "surname",
+            "gender",
             "created",
             "service",
+            "site",
+            "as_member",
+            "cellphone",
             "banned",
             "email",
             "secret",

@@ -67,46 +67,46 @@ import HintEditForm from "./HintEditForm.vue";
 export default {
   components: {
     HintCreationForm,
-    HintEditForm
+    HintEditForm,
   },
   props: {
-    challenge_id: Number
+    challenge_id: Number,
   },
-  data: function() {
+  data: function () {
     return {
       hints: [],
-      editing_hint_id: null
+      editing_hint_id: null,
     };
   },
   methods: {
-    loadHints: function() {
+    loadHints: function () {
       CTFd.fetch(`/api/v1/challenges/${this.$props.challenge_id}/hints`, {
         method: "GET",
         credentials: "same-origin",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(response => {
+        .then((response) => {
           if (response.success) {
             this.hints = response.data;
           }
         });
     },
-    addHint: function() {
+    addHint: function () {
       let modal = this.$refs.HintCreationForm.$el;
       $(modal).modal();
     },
-    editHint: function(hintId) {
+    editHint: function (hintId) {
       this.editing_hint_id = hintId;
       let modal = this.$refs.HintEditForm.$el;
       $(modal).modal();
     },
-    refreshHints: function(caller) {
+    refreshHints: function (caller) {
       this.loadHints();
       let modal;
       switch (caller) {
@@ -123,29 +123,29 @@ export default {
           break;
       }
     },
-    deleteHint: function(hintId) {
+    deleteHint: function (hintId) {
       ezQuery({
         title: "Delete Hint",
         body: "Are you sure you want to delete this hint?",
         success: () => {
           CTFd.fetch(`/api/v1/hints/${hintId}`, {
-            method: "DELETE"
+            method: "DELETE",
           })
-            .then(response => {
+            .then((response) => {
               return response.json();
             })
-            .then(data => {
+            .then((data) => {
               if (data.success) {
                 this.loadHints();
               }
             });
-        }
+        },
       });
-    }
+    },
   },
   created() {
     this.loadHints();
-  }
+  },
 };
 </script>
 

@@ -296,5 +296,6 @@ module.exports = (env, options) => {
       output.push(entry)
     }
   }
+  output.hashFunction = 'md5'
   return output
 }

@@ -144,14 +144,72 @@ class PublicUserSearchForm(BaseForm):
     submit = SubmitField("Search")
 
 
+services = [
+    "DG/DG",
+    "SG/SG",
+    "SG/MJ",
+    "SG/SAFCG",
+    "SG/SAM",
+    "SG/SILOG",
+    "DP/DP",
+    "DP/PEPS",
+    "DP/SPRI",
+    "DP/SPP",
+    "DP/SDPU",
+    "DP/DR",
+    "DSI/DSI",
+    "DSI/SOI",
+    "DSI/SDM",
+    "DSI/SIMV",
+    "ENSG/ENSG",
+    "ENSG/SE",
+    "ENSG/SMG",
+    "DOT/DOT",
+    "DOT/SISFE",
+    "DOT/SGM",
+    "DOT/SISFE",
+    "DOT/SIA",
+    "DOT/SV3D",
+    "DOT/SVRP",
+    "DOT/DT-CE",
+    "DOT/DT-NOM",
+    "DOT/DT-GO",
+    "DOT/DT-SE",
+    "DOT/DT-SO",
+    "DRH/DRH",
+    "DRH/SREF",
+    "DRH/SPER",
+    "DRH/SASP",
+    "DIRCOM/DIRCOM",
+    "AC/AC",
+]
+
+sites = ['Saint Mandé',
+         'Marne-La-Vallée',
+         'Lyon',
+         'Lille',
+         'Nantes',
+         'Hérouville-Saint-Clair',
+         'Caen',
+         'Aix-En-Provence',
+         'Champigneulles',
+         'Saint-Médard-En-Jalles',
+         'Ramonville-St-Agne',
+         'Tillé',
+         'Nogent-Sur-Vernisson',
+         'Villefranche-Sur-Cher',
+         'Autre']
+
+
+
 class UserBaseForm(BaseForm):
     name = StringField("Nom", validators=[InputRequired()])
     surname = StringField("Prénom", validators=[InputRequired()])
     gender = SelectField(u'Genre', choices=[('H'), ('F'), ('')])
     email = EmailField("Email", validators=[InputRequired()])
     password = PasswordField("Mot de passe")
-    site = StringField("Site")
-    service = StringField("Service")
+    site = SelectField(u'Site', choices=sites)
+    service = SelectField(u'Service', choices=services)
     cellphone = StringField("Téléphone")
     as_member = BooleanField("Membre AS")
     type = SelectField("Type", choices=[("user", "User"), ("admin", "Admin")])

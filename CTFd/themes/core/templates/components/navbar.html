@@ -22,12 +22,12 @@
                 {% if Configs.account_visibility != 'admins' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('users.listing')
-                            }}">Utilisateurs</a>
+                            }}">Participants</a>
                     </li>
                     {% if Configs.user_mode == 'teams' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('teams.listing')
-                            }}">Équipe</a>
+                            }}">Équipes</a>
                     </li>
                     {% endif %}
                 {% endif %}

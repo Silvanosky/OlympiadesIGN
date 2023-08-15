@@ -29,7 +29,7 @@ from CTFd.utils.decorators.visibility import (
     check_score_visibility,
 )
 from CTFd.utils.helpers.models import build_model_filters
-from CTFd.utils.user import get_current_team, get_current_user_type, is_admin
+from CTFd.utils.user import get_current_team, get_current_user, get_current_user_type, is_admin
 
 teams_namespace = Namespace("teams", description="Endpoint to retrieve Teams")
 
@@ -382,6 +382,35 @@ class TeamPrivate(Resource):
 
         return {"success": True}
 
+@teams_namespace.route("/me/leave")
+class TeamPrivateLeave(Resource):
+    method_decorators = [require_team_mode]
+
+    @authed_only
+    @require_team
+    @teams_namespace.doc(
+        description="Endpoint to leave current team. Can be called only if not captain",
+        responses={200: ("Success", "APISimpleSuccessResponse")},
+    )
+    def get(self):
+        team = get_current_team()
+        if team.captain_id == session["id"]:
+            return (
+                {
+                    "success": False,
+                    "errors": {"": ["You cannot leave if you are the captain"]},
+                },
+                403,
+            )
+
+        user = get_current_user()
+        user.team_id = None;
+        clear_user_session(user_id=user.id)
+        db.session.commit()
+
+        db.session.close()
+
+        return {"success": True}
 
 @teams_namespace.route("/me/members")
 class TeamPrivateMembers(Resource):

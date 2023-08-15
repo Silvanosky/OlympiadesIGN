@@ -24,7 +24,7 @@
 				<div class="tab-pane fade show active" id="profile" role="tabpanel">
 					{% include "components/errors.html" %}
 
-					{% with form = Forms.self.SettingsForm(country=country) %}
+					{% with form = Forms.self.SettingsForm(obj=user) %}
 					{% from "macros/forms.html" import render_extra_fields %}
 					<form id="user-profile-form" method="post" accept-charset="utf-8" autocomplete="off" role="form"
 						class="form-horizontal">
@@ -74,7 +74,7 @@
 
                         <div class="form-group">
                             <b>Membre AS : </b>
-                            {{ form.as_member() }}
+                            {{ form.as_member(value=as_member) }}
                         </div>
 
 						<hr>

@@ -211,7 +211,7 @@ def joinsolo():
     clear_user_session(user_id=user.id)
     clear_team_session(team_id=team.id)
 
-    return redirect(url_for("user"))
+    return redirect(url_for("challenges.listing"))
 
 
 @teams.route("/teams/new", methods=["GET", "POST"])

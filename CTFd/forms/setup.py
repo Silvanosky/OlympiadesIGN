@@ -15,6 +15,63 @@ from CTFd.forms import BaseForm
 from CTFd.forms.fields import SubmitField
 from CTFd.utils.config import get_themes
 
+services = [
+"DG/DG",
+"SG/SG",
+"SG/MJ",
+"SG/SAFCG",
+"SG/SAM",
+"SG/SILOG",
+"DP/DP",
+"DP/PEPS",
+"DP/SPRI",
+"DP/SPP",
+"DP/SDPU",
+"DP/DR",
+"DSI/DSI",
+"DSI/SOI",
+"DSI/SDM",
+"DSI/SIMV",
+"ENSG/ENSG",
+"ENSG/SE",
+"ENSG/SMG",
+"DOT/DOT",
+"DOT/SISFE",
+"DOT/SGM",
+"DOT/SISFE",
+"DOT/SIA",
+"DOT/SV3D",
+"DOT/SVRP",
+"DOT/DT-CE",
+"DOT/DT-NOM",
+"DOT/DT-GO",
+"DOT/DT-SE",
+"DOT/DT-SO",
+"DRH/DRH",
+"DRH/SREF",
+"DRH/SPER",
+"DRH/SASP",
+"DIRCOM/DIRCOM",
+"AC/AC",
+]
+
+sites= ['Saint Mandé',
+        'Marne-La-Vallée',
+        'Lyon',
+        'Lille',
+        'Nantes',
+        'Hérouville-Saint-Clair',
+        'Caen',
+        'Aix-En-Provence',
+        'Champigneulles',
+        'Saint-Médard-En-Jalles',
+        'Ramonville-St-Agne',
+        'Tillé',
+        'Nogent-Sur-Vernisson',
+        'Villefranche-Sur-Cher',
+        'Autre']
+
+
 
 class SetupForm(BaseForm):
     ctf_name = StringField(
@@ -46,15 +103,17 @@ class SetupForm(BaseForm):
         description="Your email address for the administration account",
         validators=[InputRequired()],
     )
-    site = StringField(
+    site = SelectField(
         "Admin Location Site",
         description="Your site location",
         validators=[InputRequired()],
+        choices=sites
     )
-    service = StringField(
+    service =  SelectField(
         "Admin Service",
         description="Your service/unité",
         validators=[InputRequired()],
+        choices=services
     )
 
     password = PasswordField(

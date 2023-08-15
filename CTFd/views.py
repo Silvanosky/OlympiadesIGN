@@ -328,11 +328,13 @@ def settings():
 
     user = get_current_user()
     name = user.name
+    gender = user.gender
     surname = user.surname
     email = user.email
     site = user.site
     service = user.service
     as_member = user.as_member
+    cellphone = user.cellphone
 
     if is_teams_mode() and get_current_team() is None:
         team_url = url_for("teams.private")
@@ -358,12 +360,15 @@ def settings():
 
     return render_template(
         "settings.html",
+        user=user,
         name=name,
         surname=surname,
         email=email,
         site=site,
+        gender=gender,
         as_member=as_member,
         service=service,
+        cellphone=cellphone,
         tokens=tokens,
         prevent_name_change=prevent_name_change,
         infos=infos,

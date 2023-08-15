@@ -82,7 +82,7 @@ class UserList(Resource):
                         "name": "name",
                         "surname": "surname",
                         "gender": "gender",
-
+                        "email": "email",
                         "site": "site",
                         "service": "service",
                         "cellphone": "cellphone",
@@ -311,6 +311,7 @@ class UserPrivate(Resource):
     def patch(self):
         user = get_current_user()
         data = request.get_json()
+
         schema = UserSchema(view="self", instance=user, partial=True)
         response = schema.load(data)
         if response.errors:

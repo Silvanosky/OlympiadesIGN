@@ -9,6 +9,63 @@ from CTFd.utils.countries import SELECT_COUNTRIES_LIST
 from CTFd.utils.user import get_current_user
 
 
+services = [
+"DG/DG",
+"SG/SG",
+"SG/MJ",
+"SG/SAFCG",
+"SG/SAM",
+"SG/SILOG",
+"DP/DP",
+"DP/PEPS",
+"DP/SPRI",
+"DP/SPP",
+"DP/SDPU",
+"DP/DR",
+"DSI/DSI",
+"DSI/SOI",
+"DSI/SDM",
+"DSI/SIMV",
+"ENSG/ENSG",
+"ENSG/SE",
+"ENSG/SMG",
+"DOT/DOT",
+"DOT/SISFE",
+"DOT/SGM",
+"DOT/SISFE",
+"DOT/SIA",
+"DOT/SV3D",
+"DOT/SVRP",
+"DOT/DT-CE",
+"DOT/DT-NOM",
+"DOT/DT-GO",
+"DOT/DT-SE",
+"DOT/DT-SO",
+"DRH/DRH",
+"DRH/SREF",
+"DRH/SPER",
+"DRH/SASP",
+"DIRCOM/DIRCOM",
+"AC/AC",
+]
+
+sites= ['Saint Mandé',
+        'Marne-La-Vallée',
+        'Lyon',
+        'Lille',
+        'Nantes',
+        'Hérouville-Saint-Clair',
+        'Caen',
+        'Aix-En-Provence',
+        'Champigneulles',
+        'Saint-Médard-En-Jalles',
+        'Ramonville-St-Agne',
+        'Tillé',
+        'Nogent-Sur-Vernisson',
+        'Villefranche-Sur-Cher',
+        'Autre']
+
+
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
         name = StringField("Nom")
@@ -17,8 +74,8 @@ def SettingsForm(*args, **kwargs):
         email = StringField("Email")
         password = PasswordField("Mot de passe")
         confirm = PasswordField("Mot de passe actuel")
-        service = StringField("Service")
-        site = URLField("Site")
+        service = SelectField(u'Service', choices=services)
+        site = SelectField(u'Site', choices=sites)
         cellphone = StringField("Téléphone")
         as_member = BooleanField("Membre AS")
         submit = SubmitField("Confirmer")

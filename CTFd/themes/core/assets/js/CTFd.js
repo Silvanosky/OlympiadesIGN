@@ -13,16 +13,16 @@ const api = new API("/");
 const user = {};
 const _internal = {};
 const ui = {
-  ezq
+  ezq,
 };
 const lib = {
   $,
   markdown,
-  dayjs
+  dayjs,
 };
 
 let initialized = false;
-const init = data => {
+const init = (data) => {
   if (initialized) {
     return;
   }
@@ -35,15 +35,15 @@ const init = data => {
   user.id = data.userId;
 };
 const plugin = {
-  run: f => {
+  run: (f) => {
     f(CTFd);
-  }
+  },
 };
 function markdown(config) {
   // Merge passed config with original. Default to original.
   const md_config = { ...{ html: true, linkify: true }, ...config };
   const md = MarkdownIt(md_config);
-  md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
     tokens[idx].attrPush(["target", "_blank"]);
     return self.renderToken(tokens, idx, options);
   };
@@ -52,12 +52,12 @@ function markdown(config) {
 
 const utils = {
   ajax: {
-    getScript
+    getScript,
   },
   html: {
     createHtmlNode,
-    htmlEntities
-  }
+    htmlEntities,
+  },
 };
 
 const CTFd = {
@@ -70,7 +70,7 @@ const CTFd = {
   api,
   lib,
   _internal,
-  plugin
+  plugin,
 };
 
 export default CTFd;
