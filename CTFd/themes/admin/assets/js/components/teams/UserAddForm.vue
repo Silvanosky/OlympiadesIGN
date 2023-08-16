@@ -18,7 +18,7 @@
         v-for="user in selectedUsers"
         :key="user.id"
       >
-        {{ user.name }}
+        {{ user.email }}
         <a class="btn-fa" @click="removeSelectedUser(user.id)"> &#215;</a>
       </span>
     </div>
@@ -43,7 +43,7 @@
           :key="user.id"
           @click="selectUser(idx)"
         >
-          {{ user.name }}
+          {{ user.email }}
           <small
             v-if="user.team_id"
             :class="{
@@ -96,7 +96,7 @@ export default {
         return;
       }
 
-      CTFd.fetch(`/api/v1/users?view=admin&field=name&q=${this.searchedName}`, {
+      CTFd.fetch(`/api/v1/users?view=admin&field=email&q=${this.searchedName}`, {
         method: "GET",
         credentials: "same-origin",
         headers: {
