@@ -75,7 +75,7 @@
 						</th>
 						<th class="sort-col text-center"><b>ID</b></th>
 						<th class="sort-col text-left"><b>Team</b></th>
-						<th class="sort-col text-center"><b>Country</b></th>
+						<th class="sort-col text-center"><b>Number</b></th>
 						<th class="sort-col text-center px-0"><b>Hidden</b></th>
 						<th class="sort-col text-center px-0"><b>Banned</b></th>
 					</tr>
@@ -100,11 +100,15 @@
 							{% endif %}
 							<span class="d-block text-muted">
 								<small>
+
 								</small>
 							</span>
 						</td>
-						<td class="team-country text-center" value="{{ team.country if team.country is not none }}">
+						<td class="team-size text-center" value="{{ team.country if team.country is not none }}">
 							<span>
+                                <a href="{{ url_for('admin.teams_detail', team_id=team.id) }}">
+								{{ team.members | length }}
+							</a>
 							</span>
 						</td>
 
