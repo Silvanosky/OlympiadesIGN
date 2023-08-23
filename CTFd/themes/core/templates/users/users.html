@@ -47,6 +47,7 @@
 					<thead>
 					<tr>
 						<td><b>Utilisateur</b></td>
+						<td><b>Équipe</b></td>
 						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Service</b></td>
 						<td class="d-none d-md-table-cell
                             d-lg-table-cell"><b>Site</b></td>
@@ -64,6 +65,14 @@
 									<span>{{ user.surname | truncate(50) }} {{ user.name | truncate(50) }}</span>
 								{% endif %}
 							</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell">
+								<span>
+									<a href="{{ url_for('users.public', user_id=user.id) }}">
+										{{ teams[user].name | truncate(50) }}
+									</a>
+								</span>
+							</td>
+	
 							<td class="d-none d-md-table-cell d-lg-table-cell">
                                 {% if scores_visible() %}
 									<a href="{{ url_for('users.public', user_id=user.id) }}">

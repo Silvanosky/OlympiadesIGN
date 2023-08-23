@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
 
-from CTFd.models import Users
+from CTFd.models import Users, Teams
 from CTFd.utils import config
 from CTFd.utils.decorators import authed_only
 from CTFd.utils.decorators.visibility import (
@@ -31,6 +31,11 @@ def listing():
         .order_by(Users.id.asc())
         .paginate(per_page=50)
     )
+    teams = {}
+    for u in users.items:
+        team = Teams.query.filter_by(id=u.team_id).first()
+        if team:
+            teams[u] = team
 
     args = dict(request.args)
     args.pop("page", 1)
@@ -38,6 +43,7 @@ def listing():
     return render_template(
         "users/users.html",
         users=users,
+        teams=teams,
         prev_page=url_for(request.endpoint, page=users.prev_num, **args),
         next_page=url_for(request.endpoint, page=users.next_num, **args),
         q=q,
