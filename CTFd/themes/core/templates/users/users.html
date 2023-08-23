@@ -68,7 +68,7 @@
 							<td class="d-none d-md-table-cell d-lg-table-cell">
 								<span>
                                 {% if teams[user] %}
-									<a href="{{ url_for('users.public', user_id=user.id) }}">
+									<a href="{{ url_for('teams.public', team_id=teams[user].id) }}">
 
 										{{ teams[user].name | truncate(50) }}
 									</a>
