@@ -36,7 +36,7 @@ services = [
 "ENSG/SE",
 "ENSG/SMG",
 "DOT/DOT",
-"DOT/SISFE",
+"DOT/SIS",
 "DOT/SGM",
 "DOT/SISFE",
 "DOT/SIA",
