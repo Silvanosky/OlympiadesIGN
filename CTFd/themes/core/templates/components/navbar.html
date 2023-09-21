@@ -32,13 +32,13 @@
                     {% endif %}
                 {% endif %}
 
+		{% if 0 %} 
                 {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{
                             url_for('scoreboard.listing') }}">Tableau des Scores</a>
                     </li>
                 {% endif %}
-		{% if 0 %} 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('challenges.listing')
                         }}">Épreuves</a>
